@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("./partials/head.ejs") %>
+  <body>
+    <div class="container" s>
+      <%- include("./partials/nav.ejs") %>
+      <h1>CONTACTS:</h1>
+      <% const name = "Jack" %>
+      <div style="display: flex; flex-direction: column; align-items: center">
+        <ul>
+          <% if (contacts.length) { %> <% contacts.forEach(({link, name}) => {
+          %>
+          <li>
+            <h3>
+              <a href="<%= link  %>"><%= name %></a>
+            </h3>
+          </li>
+          <% }) %> <% } %>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>

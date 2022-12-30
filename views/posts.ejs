@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("./partials/head.ejs") %>
+  <body>
+    <div class="container">
+      <%- include("./partials/nav.ejs") %>
+      <h1>POSTS PAGE:</h1>
+      <ul>
+        <% if (posts.length) { %> <% posts.forEach(({id, text, title, createdAt,
+        author}) => { %>
+        <li>
+          <div class="post_container">
+            <a href="/posts/<%= id %>"><h1><%= title %></h1></a>
+            <h3><%= text %></h3>
+            <h4><%= createdAt.toLocaleDateString() %></h4>
+            <h4><%= author %></h4>
+            <button data-id="<%= id %>">Delete</button>
+          </div>
+        </li>
+        <% }) %> <% } %>
+      </ul>
+    </div>
+
+    <script>
+      document.addEventListener("click", (e) => {
+        const id = e.target?.dataset?.id || null;
+        if (id) {
+          fetch(`posts/${id}`, {
+            method: "DELETE",
+          }).then(() => window.location.reload());
+        }
+      });
+    </script>
+  </body>
+</html>

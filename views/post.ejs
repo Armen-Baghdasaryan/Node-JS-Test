@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("./partials/head.ejs") %>
+  <body>
+    <div class="container">
+      <%- include("./partials/nav.ejs") %>
+      <h1>POST By ID PAGE:</h1>
+      <div style="display: flex; flex-direction: column; align-items: center">
+        <h1><%= post.title %></h1>
+        <h3><%= post.text %></h3>
+        <h5><%= post.createdAt.toLocaleDateString() || "No date" %></h5>
+        <h5><%= post.author %></h5>
+        <div>
+          <button data-id="<%= post.id %>">Delete</button>
+          <a href="/edit/<%= post.id %>" style="margin-left: 20px">Edit</a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("click", (e) => {
+        const id = e.target?.dataset?.id || null;
+        if (id) {
+          fetch(id, {
+            method: "DELETE",
+          }).then((result) => (window.location.href = "/posts"));
+        }
+      });
+    </script>
+  </body>
+</html>
